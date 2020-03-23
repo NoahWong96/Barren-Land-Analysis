@@ -15,6 +15,9 @@ class TestBarrenLand(unittest.TestCase):
 
     def test_init(self):
         #Testing invalid inputs
+        self.barren4 = BarrenLand(lowerLeftVertex = [0, 0], upperRightVertex = [20, 20])
+
+
         with self.assertRaises(ValueError):
             BarrenLand(stringVertex = "-1 10 20 20")
 
@@ -73,12 +76,12 @@ class TestFertileLand(unittest.TestCase):
         self.FertileLand2.seperatePlots()
 
         #Testing the number of plots
-        self.assertEqual(2, self.FertileLand1.number_of_Plots)
-        self.assertEqual(6, self.FertileLand2.number_of_Plots)
+        self.assertEqual(2, self.FertileLand1.numberOfPlots)
+        self.assertEqual(6, self.FertileLand2.numberOfPlots)
 
         #Testing if points in different plots are associated with different numbers
-        self.assertNotEqual(self.FertileLand1.plots_of_Land[self.testpoint3[0],self.testpoint3[1]],
-                            self.FertileLand1.plots_of_Land[self.testpoint4[0],self.testpoint4[1]])
+        self.assertNotEqual(self.FertileLand1.plotsOfLand[self.testpoint3[0],self.testpoint3[1]],
+                            self.FertileLand1.plotsOfLand[self.testpoint4[0],self.testpoint4[1]])
 
 
 
