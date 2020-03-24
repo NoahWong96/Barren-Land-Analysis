@@ -40,23 +40,13 @@ class BarrenLand:
 
         return points
 
-    #Prints BarrenLand coordinates
-    def getVertices(self):
-        LowerLeftVertex = [self.lowerLeftX, self.lowerLeftY]
-        UpperRightVertex = [self.upperRightX, self.upperRightY]
 
-        print("The lower left vertex is ", LowerLeftVertex )
-        print("The upper right vertex is ", UpperRightVertex)
-        return
-
-
-#This class is for the fertile land
 class FertileLand:
 
     def __init__(self,fieldwidth= 400,fieldheight = 600):
 
-        #FertilePoints tells us if each 1 by 1 square is fertile or barren
-        #one represents fertile, zero represents barren
+        #fertilePoints tells us if each 1 by 1 square is fertile or barren
+        #1 represents fertile, 0 represents barren
         self.fertilePoints = np.matlib.ones((fieldwidth,fieldheight))
         self.width = fieldwidth
         self.height = fieldheight
@@ -76,24 +66,7 @@ class FertileLand:
                     self.totalArea = self.totalArea - 1
         return
 
-    #This should only be called after seperatePlots, it counts the area of each plot
-    def areaOfPlots(self):
-        numberOfPlots = list(range(0,self.numberOfPlots+1))
-        areas = np.zeros(len(numberOfPlots))
-
-        #This counts the size of each plot including the size of barren land
-        for i in range(0,self.height):
-            for j in range (0,self.width):
-                areas[int(self.plotsOfLand[j,i])] = areas[int(self.plotsOfLand[j,i])] + 1
-
-        #Remove the barren land count
-        areas = areas[1:]
-
-        #sort the areas smallest to largest
-        areas = np.sort(areas, kind ='mergesort')
-        return areas
-
-    #This initializes both Number_of_Plots and Plots_of_Land which seperate our field into
+    #This initializes both numberOfPlots and plotsOfLand which seperate our field into
     #different plots of fertile land
     def seperatePlots(self):
         #create an array with plots of land that have been counted, this will be filled with
@@ -101,7 +74,7 @@ class FertileLand:
         alreadyCounted = np.matlib.zeros((self.width, self.height))
 
         #Keeps track of how much land has been accounted for, When alreadyCountedArea is equal to
-        #TotalArea then we can stop the arrays
+        #totalArea then we can stop the arrays
         alreadyCountedArea =0
 
         #this holds the number of the seperated plot we have found, it starts at one and then
@@ -123,10 +96,10 @@ class FertileLand:
                     continue
                 break
 
-            #To find the points that are touching firstpoint, we start an iterative process
-            #We explore the points touching firstpoint, if those points are fertile (FertilePoints == 1) and
-            #unaccounted for (Alreadycounted == 0), then we add them to next_generation,
-            #The points in next_generation then are explored in the same fashion our next step
+            #To find the points that are touching firstPoint, we start an iterative process
+            #We explore the points touching firstPoint, if those points are fertile (fertilePoints == 1) and
+            #unaccounted for (alreadyCounted == 0), then we add them to nextGeneration,
+            #The points in nextGeneration then are explored in the same fashion our next step
 
 
             #this list will hold the points from the last step added as we search through this array
@@ -134,7 +107,7 @@ class FertileLand:
             #this list will hold the new points we find
             nextGeneration = []
 
-            while len(lastGeneration) != 0: #When we have counted every point last_generation will be empty
+            while len(lastGeneration) != 0: #When we have counted every point lastGeneration will be empty
                 for point in lastGeneration:
                     #Case 1, checking to see if South of point is fertile and unaccounted for
                     if point[1] > 0:     #check to see if the point is on the edge
@@ -164,7 +137,7 @@ class FertileLand:
                             alreadyCounted[point[0]+1,point[1]] = numberOfPlot
                             alreadyCountedArea = alreadyCountedArea + 1
 
-                #Now we take the new points we found and set them as last_generation
+                #Now we take the new points we found and set them as lastGeneration
                 #These are points that will be explored in the next step
                 lastGeneration = nextGeneration
                 nextGeneration = []
@@ -173,6 +146,23 @@ class FertileLand:
         self.numberOfPlots = numberOfPlot
         self.plotsOfLand = alreadyCounted
         return
+
+    #This should only be called after seperatePlots, it counts the area of each plot
+    def areaOfPlots(self):
+        numberOfPlots = list(range(0,self.numberOfPlots+1))
+        areas = np.zeros(len(numberOfPlots))
+
+        #This counts the size of each plot including the size of barren land
+        for i in range(0,self.height):
+            for j in range (0,self.width):
+                areas[int(self.plotsOfLand[j,i])] = areas[int(self.plotsOfLand[j,i])] + 1
+
+        #Remove the barren land count
+        areas = areas[1:]
+
+        #sort the areas smallest to largest
+        areas = np.sort(areas, kind ='mergesort')
+        return areas
 
 #given your list of vertices
 def calculateAreas(verticesList):
@@ -190,14 +180,16 @@ def calculateAreas(verticesList):
 
 
 def readIn():
-    lines = sys.stdin.readlines()
     barrenVertexList = []
-    for i in range(len(lines)):
-        lines[i] = lines[i].replace('\n','')
-        lines[i] = lines[i].replace('\"','')
+    while True:
 
-    barrenVertexList = lines[0].split(", ")
-    #print lines
+        data = input("Please enter a barren land in the format 0 0 20 20. Please enter Exit when done:\n")
+        if 'Exit' == data:
+            break
+        else:
+            barrenVertexList.append(data)
+
+
     return barrenVertexList
 
 
@@ -205,7 +197,7 @@ def readIn():
 
 if __name__ == '__main__':
     barrenVertexList = readIn()
-    print(calculateAreas(barrenVertexList))
+    print("The area of the plots are ", calculateAreas(barrenVertexList))
 
     #print(calculateAreas(["0 292 399 307"]))
     #print(calculateAreas(["48 192 351 207", "48 392 351 407", "120 52 135 547", "260 52 275 547"]))

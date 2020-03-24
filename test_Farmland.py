@@ -14,10 +14,9 @@ class TestBarrenLand(unittest.TestCase):
         self.testpoint3 = [20, 291]
 
     def test_init(self):
-        #Testing invalid inputs
         self.barren4 = BarrenLand(lowerLeftVertex = [0, 0], upperRightVertex = [20, 20])
 
-
+        #Testing invalid inputs
         with self.assertRaises(ValueError):
             BarrenLand(stringVertex = "-1 10 20 20")
 
@@ -25,19 +24,19 @@ class TestBarrenLand(unittest.TestCase):
             BarrenLand(stringVertex = "0 0 500 1000")
 
     def test_generatePoints(self):
-        Grid1 = self.barren1.generatePoints()
-        Grid2 = self.barren2.generatePoints()
-        Grid3 = self.barren3.generatePoints()
+        grid1 = self.barren1.generatePoints()
+        grid2 = self.barren2.generatePoints()
+        grid3 = self.barren3.generatePoints()
 
         #checking if the correct points are the grid
-        self.assertIn(self.testpoint1,Grid1)
-        self.assertIn(self.testpoint2,Grid1)
-        self.assertNotIn(self.testpoint3, Grid1)
+        self.assertIn(self.testpoint1,grid1)
+        self.assertIn(self.testpoint2,grid1)
+        self.assertNotIn(self.testpoint3, grid1)
 
         #Check if generatePoints returns the correct number
-        self.assertEqual(self.barren1.area, len(Grid1))
-        self.assertEqual(self.barren2.area, len(Grid2))
-        self.assertEqual(self.barren3.area, len(Grid3))
+        self.assertEqual(self.barren1.area, len(grid1))
+        self.assertEqual(self.barren2.area, len(grid2))
+        self.assertEqual(self.barren3.area, len(grid3))
 
 
 class TestFertileLand(unittest.TestCase):
@@ -52,44 +51,52 @@ class TestFertileLand(unittest.TestCase):
         self.testpoint3 = [20, 291]
         self.testpoint4 = [40, 400]
 
-        self.FertileLand1 = FertileLand()
-        self.FertileLand2 = FertileLand()
+        self.fertileLand1 = FertileLand()
+        self.fertileLand2 = FertileLand()
 
     def test_removeBarren(self):
-        self.FertileLand1.removeBarren([self.barren1])
-        self.FertileLand2.removeBarren([self.barren1, self.barren2, self.barren3])
+        self.fertileLand1.removeBarren([self.barren1])
+        self.fertileLand2.removeBarren([self.barren1, self.barren2, self.barren3])
 
         #testing if individual points have been coded correctly in FertilePoints
-        self.assertEqual(0,self.FertileLand1.fertilePoints[self.testpoint1[0], self.testpoint1[1]])
-        self.assertEqual(0,self.FertileLand1.fertilePoints[self.testpoint2[0], self.testpoint2[1]])
-        self.assertEqual(1,self.FertileLand1.fertilePoints[self.testpoint3[0], self.testpoint3[1]])
+        self.assertEqual(0,self.fertileLand1.fertilePoints[self.testpoint1[0], self.testpoint1[1]])
+        self.assertEqual(0,self.fertileLand1.fertilePoints[self.testpoint2[0], self.testpoint2[1]])
+        self.assertEqual(1,self.fertileLand1.fertilePoints[self.testpoint3[0], self.testpoint3[1]])
 
         #Seeing if the totalArea matches the correct results
-        self.assertEqual(233600, self.FertileLand1.totalArea)
-        self.assertEqual(220032, self.FertileLand2.totalArea)
+        self.assertEqual(233600, self.fertileLand1.totalArea)
+        self.assertEqual(220032, self.fertileLand2.totalArea)
 
     def test_seperatePlots(self):
-        self.FertileLand1.removeBarren([self.barren1])
-        self.FertileLand2.removeBarren([self.barren1, self.barren2, self.barren3])
+        self.fertileLand1.removeBarren([self.barren1])
+        self.fertileLand2.removeBarren([self.barren1, self.barren2, self.barren3])
 
-        self.FertileLand1.seperatePlots()
-        self.FertileLand2.seperatePlots()
+        self.fertileLand1.seperatePlots()
+        self.fertileLand2.seperatePlots()
 
         #Testing the number of plots
-        self.assertEqual(2, self.FertileLand1.numberOfPlots)
-        self.assertEqual(6, self.FertileLand2.numberOfPlots)
+        self.assertEqual(2, self.fertileLand1.numberOfPlots)
+        self.assertEqual(6, self.fertileLand2.numberOfPlots)
 
         #Testing if points in different plots are associated with different numbers
-        self.assertNotEqual(self.FertileLand1.plotsOfLand[self.testpoint3[0],self.testpoint3[1]],
-                            self.FertileLand1.plotsOfLand[self.testpoint4[0],self.testpoint4[1]])
+        self.assertNotEqual(self.fertileLand1.plotsOfLand[self.testpoint3[0],self.testpoint3[1]],
+                            self.fertileLand1.plotsOfLand[self.testpoint4[0],self.testpoint4[1]])
 
 
 
+    def test_areaOfPlots(self):
+        self.fertileLand1.removeBarren([self.barren1])
+        self.fertileLand2.removeBarren([self.barren1, self.barren2, self.barren3])
 
+        self.fertileLand1.seperatePlots()
+        self.fertileLand2.seperatePlots()
 
+        self.area1 = self.fertileLand1.areaOfPlots()
+        self.area2 = self.fertileLand2.areaOfPlots()
 
-
-
+        #Check if numberOfPlots matches the length of area
+        self.assertEqual(len(self.area1), self.fertileLand1.numberOfPlots)
+        self.assertEqual(len(self.area2), self.fertileLand2.numberOfPlots)
 
 
 
