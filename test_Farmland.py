@@ -83,7 +83,6 @@ class TestFertileLand(unittest.TestCase):
                             self.fertileLand1.plotsOfLand[self.testpoint4[0],self.testpoint4[1]])
 
 
-
     def test_areaOfPlots(self):
         self.fertileLand1.removeBarren([self.barren1])
         self.fertileLand2.removeBarren([self.barren1, self.barren2, self.barren3])

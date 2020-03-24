@@ -1,5 +1,3 @@
-#This contains the two classes of BarrenLand and FertileLand
-
 import numpy.matlib
 import numpy as np
 import sys
@@ -178,13 +176,14 @@ def calculateAreas(verticesList):
     return fertileLand.areaOfPlots()
 
 
-
+#STDIN of vertices
 def readIn():
+    #Holds the list of vertices
     barrenVertexList = []
     while True:
 
         data = input("Please enter a barren land in the format 0 0 20 20. Please enter Exit when done:\n")
-        if 'Exit' == data:
+        if 'Exit' == data: #Type exit when stopping the input
             break
         else:
             barrenVertexList.append(data)
