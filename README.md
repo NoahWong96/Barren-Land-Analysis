@@ -11,6 +11,10 @@ Farmland holds two classes that interact, BarrenLand and FertileLand. BarrenLand
 
 ## Running FarmLand
 ![alt text](ExampleCode.PNG "Example of how to run code")
+When you run FarmLand, you have to input the Barren Land vertices as 4 numbers seperated by spaces, first the lower left x and y coordinates and then the upper right x and y coordinates. Keep entering in the barren land coordinates until you are done and then type Exit. The program will return the sizes of the plots of fertile lands as a list in a few seconds.
 
+
+## Unit Testing
+The file test_Farmland.py provides some tests on the individual methods of the classes FertileLand and BarrenLand. It tests whether the methods work as planned.
 
 
