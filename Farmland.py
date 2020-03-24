@@ -197,7 +197,3 @@ def readIn():
 if __name__ == '__main__':
     barrenVertexList = readIn()
     print("The area of the plots are ", calculateAreas(barrenVertexList))
-
-    #print(calculateAreas(["0 292 399 307"]))
-    #print(calculateAreas(["48 192 351 207", "48 392 351 407", "120 52 135 547", "260 52 275 547"]))
-    #print(calculateAreas(["0 292 399 307", "0 100 399 110", "192 0 207 599"]))
