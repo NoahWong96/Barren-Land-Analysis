@@ -10,7 +10,7 @@ Farmland holds two classes that interact, BarrenLand and FertileLand. BarrenLand
 
 
 ## Running FarmLand
-![alt text](https://raw.githubusercontent.com/NoahWong96/Barren-Land-Analysis/edit/master/ExampleCode.PNG)
+![alt text](ExampleCode.PNG "Example of how to run code")
 
 
 
