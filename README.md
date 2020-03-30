@@ -1,5 +1,5 @@
 # Target Case Study
-Noah Wong 
+For the instructions of the program, read the Target Case Study pdf. I chose to do the Barren Land Analysis problem.
 
 
 ## Barren Land Analysis
@@ -17,4 +17,8 @@ When you run FarmLand, you have to input the Barren Land vertices as 4 numbers s
 ## Unit Testing
 The file test_Farmland.py provides some tests on the individual methods of the classes FertileLand and BarrenLand. It tests whether the methods work as planned.
 
+## Other examples
+Here are some more examples you can run
+1.)  0 0 0 599 
+2.)  0 0 199 299, 200 300 399 599
 
